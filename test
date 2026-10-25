@@ -1,0 +1,56 @@
+
+$path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
+
+Get-ItemProperty $path |
+    Select-Object EnableLUA,
+                  ConsentPromptBehaviorAdmin,
+                  PromptOnSecureDesktop
+
+
+
+$exe = "$env:windir\System32\sdclt.exe"
+
+if (Test-Path $exe) {
+    Get-Item $exe |
+        Select-Object FullName,
+            @{Name='FileVersion'; Expression={$_.VersionInfo.FileVersion}}
+    Get-AuthenticodeSignature $exe |
+        Select-Object Status, SignerCertificate
+} else {
+    'sdclt.exe not found at the expected path'
+}
+
+
+
+$key = 'HKCU:\Software\Classes\Folder\shell\open\command'
+
+if (Test-Path $key) {
+    Get-Item $key
+    Get-ItemProperty $key
+} else {
+    'The specified per-user registry key does not exist.'
+}
+
+
+$runKeys = @(
+    'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run',
+    'HKLM:\Software\Microsoft\Windows\CurrentVersion\Run',
+    'HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Run'
+)
+
+foreach ($key in $runKeys) {
+    if (Test-Path $key) {
+        "`n--- $key ---"
+        Get-ItemProperty $key
+    }
+}
+
+
+Get-CimInstance -Namespace root/subscription `
+    -ClassName __EventFilter
+
+Get-CimInstance -Namespace root/subscription `
+    -ClassName CommandLineEventConsumer
+
+Get-CimInstance -Namespace root/subscription `
+    -ClassName __FilterToConsumerBinding
