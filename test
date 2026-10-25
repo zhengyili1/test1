@@ -1,4 +1,27 @@
 
+
+# Method 1: Read the Windows version from the registry
+Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' |
+    Select-Object ProductName, EditionID, DisplayVersion,
+                  CurrentBuild, UBR, InstallationType
+
+# Method 2: Query the OS directly
+Get-CimInstance Win32_OperatingSystem |
+    Select-Object Caption, Version, BuildNumber, OSArchitecture
+
+# Method 3: Check the installed servicing packages
+dism.exe /online /get-packages /format:table
+
+
+
+Test-Path "$env:windir\System32\sdclt.exe"
+Test-Path "$env:windir\SysWOW64\sdclt.exe"
+
+# Search for the executable within Windows
+Get-ChildItem "$env:windir\System32" -Filter sdclt.exe `
+    -ErrorAction SilentlyContinue
+
+
 $path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
 
 Get-ItemProperty $path |
