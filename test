@@ -3,7 +3,7 @@
 
 
 
-exe="env:windir\System32\sdclt.exe"
+$exe = "$env:windir\System32\sdclt.exe"
 
 if (Test-Path $exe) {
     Get-Item $exe |
