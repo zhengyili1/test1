@@ -1,3 +1,31 @@
+exe="env:windir\System32\sdclt.exe"
+
+if (Test-Path $exe) {
+    Get-Item $exe |
+        Select-Object FullName,
+            @{Name='FileVersion'; Expression={$_.VersionInfo.FileVersion}}
+    Get-AuthenticodeSignature $exe |
+        Select-Object Status, SignerCertificate
+} else {
+    'sdclt.exe not found at the expected path'
+}
+
+
+$key = 'HKCU:\Software\Classes\Folder\shell\open\command'
+
+if (Test-Path $key) {
+    Get-Item $key
+    Get-ItemProperty $key
+} else {
+    'The specified per-user registry key does not exist.'
+}
+
+Test-Path "$env:windir\System32\sdclt.exe"
+Test-Path "$env:windir\SysWOW64\sdclt.exe"
+
+# Search for the executable within Windows
+Get-ChildItem "$env:windir\System32" -Filter sdclt.exe `
+    -ErrorAction SilentlyContinue
 
 
 # Method 1: Read the Windows version from the registry
