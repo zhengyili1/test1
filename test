@@ -1,4 +1,5 @@
 
+Get-LocalUser 
 
 Set-LocalUser -Name "Administrator" -Password (Read-Host "password" -AsSecureString)
 
