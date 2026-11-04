@@ -52,22 +52,10 @@ restart
 
 Check
 	Get-MpPreference | Select-Object `
-    DisableRealtimeMonitoring, `
-    DisableBehaviorMonitoring, `
-    DisableBlockAtFirstSeen, `
-    DisableScriptScanning, `
-    DisableIOAVProtection, `
-    SubmitSamplesConsent, `
-    MAPSReporting
+    DisableRealtimeMonitoring, DisableBehaviorMonitoring, DisableBlockAtFirstSeen, DisableScriptScanning, DisableIOAVProtection, SubmitSamplesConsent, MAPSReporting
 
 Get-MpComputerStatus | Select-Object `
-    AntivirusEnabled, `
-    AMServiceEnabled, `
-    AMRunningMode, `
-    RealTimeProtectionEnabled, `
-    BehaviorMonitorEnabled, `
-    IoavProtectionEnabled, `
-    OnAccessProtectionEnabled
+	AntivirusEnabled, AMServiceEnabled, AMRunningMode, RealTimeProtectionEnabled, BehaviorMonitorEnabled, IoavProtectionEnabled, OnAccessProtectionEnabled
 
 
 
