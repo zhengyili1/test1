@@ -1,6 +1,6 @@
 
 
-Set-LocalUser -Name Administrator -Password (Read-Host "New Administrator password" -AsSecureString
+Set-LocalUser -Name "Administrator" -Password (Read-Host "password" -AsSecureString)
 
 Enable-LocalUser -Name "Administrator"
 
