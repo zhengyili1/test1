@@ -4,6 +4,9 @@ Set-LocalUser -Name "Administrator" -Password (Read-Host "password" -AsSecureStr
 
 Enable-LocalUser -Name "Administrator"
 
+Remove-LocalUser -Name "Admin"
+
+
 
 Turn off auto updates in powershell: 
 			Stop-Service wuauserv -Force
