@@ -6,6 +6,8 @@ Enable-LocalUser -Name "Administrator"
 
 Remove-LocalUser -Name "Admin"
 
+Get-NetFirewallRule *WinRM*
+
 
 
 Turn off auto updates in powershell: 
