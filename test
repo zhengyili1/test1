@@ -13,6 +13,11 @@ Enable-LocalUser -Name "Administrator"
 
 Remove-LocalUser -Name "Admin"
 
+Get-CimInstance Win32_UserProfile |
+    Where-Object {$_.LocalPath -eq "C:\Users\Admin"} |
+    Remove-CimInstance
+
+
 Get-NetFirewallRule *WinRM*
 
 
