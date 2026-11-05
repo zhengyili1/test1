@@ -17,6 +17,29 @@ Get-CimInstance Win32_UserProfile |
     Where-Object {$_.LocalPath -eq "C:\Users\Admin"} |
     Remove-CimInstance
 
+net user Administrator /active:yes
+net user Administrator *
+
+Get-LocalUser | Format-Table Name, Enabled, SID
+
+
+<settings pass="specialize">
+  <component name="Microsoft-Windows-Deployment"
+             processorArchitecture="amd64"
+             publicKeyToken="31bf3856ad364e35"
+             language="neutral"
+             versionScope="nonSxS">
+    <RunSynchronous>
+      <RunSynchronousCommand wcm:action="add">
+        <Order>1</Order>
+        <Description>Enable Administrator</Description>
+        <Path>cmd /c net user Administrator /active:yes</Path>
+      </RunSynchronousCommand>
+    </RunSynchronous>
+  </component>
+</settings>
+
+
 
 Get-NetFirewallRule *WinRM*
 
